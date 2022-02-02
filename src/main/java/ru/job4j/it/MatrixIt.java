@@ -13,6 +13,9 @@ public class MatrixIt implements Iterator<Integer> {
     }
 
     @Override
+    /**
+     * checking if the column is max and the row can be incremented
+     */
     public boolean hasNext() {
         while (column == data[row].length
                 && row < data.length - 1) {
@@ -23,6 +26,9 @@ public class MatrixIt implements Iterator<Integer> {
     }
 
     @Override
+    /**
+     * incrementing column only!
+     */
     public Integer next() {
         if (!hasNext()) {
             throw new NoSuchElementException();
