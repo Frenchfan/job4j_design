@@ -19,13 +19,22 @@ public class Generics {
         gen.printObject(third);
         System.out.println();
 
-
+        /**
+         * The method is not applicable to the first because of the boundedwildcard (Iterator<? extends Predator> it)
+         * Predator extends Animal
+         * gen.printBoundedWildCard(first);
+         */
         gen.printBoundedWildCard(second);
         gen.printBoundedWildCard(third);
         System.out.println();
 
         gen.printLowerBoundedWildCard(first);
         gen.printLowerBoundedWildCard(second);
+        /**
+         * The method is not applicable because of the lowerbounding Iterator<? super Predator>
+         * third extends Predator, while Predator and its parents are applicable
+         * gen.printLowerBoundedWildCard(third);
+         */
 
     }
 
