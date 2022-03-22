@@ -8,6 +8,8 @@ public class SimpleArrayList<T> implements List<T> {
 
     private T[] container;
 
+    private int size = 0;
+
     private int modCount = 0;
 
     public SimpleArrayList(int capacity) {
@@ -20,6 +22,7 @@ public class SimpleArrayList<T> implements List<T> {
             container = Arrays.copyOf(container, container.length * 2);
         }
         container[modCount] = value;
+        size++;
         modCount++;
     }
 
@@ -28,6 +31,7 @@ public class SimpleArrayList<T> implements List<T> {
         Objects.checkIndex(index, modCount);
         T oldContainer = container[index];
         container[index] = newValue;
+        modCount++;
         return oldContainer;
     }
 
@@ -37,7 +41,8 @@ public class SimpleArrayList<T> implements List<T> {
         T oldContainer = container[index];
         System.arraycopy(container, index + 1, container, index, container.length - index - 1);
         container[modCount - 1] = null;
-        modCount--;
+        modCount++;
+        size--;
         return oldContainer;
     }
 
@@ -49,7 +54,7 @@ public class SimpleArrayList<T> implements List<T> {
 
     @Override
     public int size() {
-        return modCount;
+        return size;
     }
 
     @Override
