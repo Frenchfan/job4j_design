@@ -34,8 +34,7 @@ public class SimpleArrayList<T> implements List<T> {
 
     @Override
     public T set(int index, T newValue) {
-        Objects.checkIndex(index, size);
-        T oldContainer = container[index];
+        T oldContainer = get(index);
         container[index] = newValue;
         modCount++;
         return oldContainer;
@@ -43,8 +42,7 @@ public class SimpleArrayList<T> implements List<T> {
 
     @Override
     public T remove(int index) {
-        Objects.checkIndex(index, size);
-        T oldContainer = container[index];
+        T oldContainer = get(index);
         System.arraycopy(container, index + 1, container, index, container.length - index - 1);
         container[size - 1] = null;
         modCount++;
@@ -74,7 +72,7 @@ public class SimpleArrayList<T> implements List<T> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return position >= 0 && position < size;
+                return position < size;
             }
 
             @Override
