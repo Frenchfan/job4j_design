@@ -18,17 +18,23 @@ public class SimpleArrayList<T> implements List<T> {
 
     @Override
     public void add(T value) {
-        if (modCount == container.length) {
-            container = Arrays.copyOf(container, container.length * 2);
-        }
-        container[modCount] = value;
+        checkSize();
+        container[size] = value;
         size++;
         modCount++;
     }
 
+    private void checkSize() {
+        if (size == 0) {
+            container = (T[]) new Object[1];
+        } else if (size == container.length) {
+            container = Arrays.copyOf(container, container.length * 2);
+        }
+    }
+
     @Override
     public T set(int index, T newValue) {
-        Objects.checkIndex(index, modCount);
+        Objects.checkIndex(index, size);
         T oldContainer = container[index];
         container[index] = newValue;
         modCount++;
@@ -37,10 +43,10 @@ public class SimpleArrayList<T> implements List<T> {
 
     @Override
     public T remove(int index) {
-        Objects.checkIndex(index, modCount);
+        Objects.checkIndex(index, size);
         T oldContainer = container[index];
         System.arraycopy(container, index + 1, container, index, container.length - index - 1);
-        container[modCount - 1] = null;
+        container[size - 1] = null;
         modCount++;
         size--;
         return oldContainer;
@@ -48,7 +54,7 @@ public class SimpleArrayList<T> implements List<T> {
 
     @Override
     public T get(int index) {
-        Objects.checkIndex(index, modCount);
+        Objects.checkIndex(index, size);
         return container[index];
     }
 
@@ -60,15 +66,15 @@ public class SimpleArrayList<T> implements List<T> {
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
-            private  int position = 0;
-            private int expectedModCount = modCount;
+            private int position = 0;
+            private final int expectedModCount = modCount;
 
             @Override
             public boolean hasNext() {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return position >= 0 && position < modCount;
+                return position >= 0 && position < size;
             }
 
             @Override
