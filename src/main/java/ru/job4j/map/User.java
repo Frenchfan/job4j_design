@@ -17,15 +17,6 @@ public class User {
         this.birthday = birthday;
     }
 
-    @Override
-    public String toString() {
-        return "User{"
-                + "name='" + name + '\''
-                + ", children=" + children
-                + ", birthday=" + birthday
-                + '}';
-    }
-
     public static void main(String[] args) {
         User test1 = new User("First", 2, new GregorianCalendar(1990, 0, 5));
         User test2 = new User("First", 2, new GregorianCalendar(1990, 0, 5));
