@@ -21,15 +21,12 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean put(K key, V value) {
-        if (get(key) != null) {
-            return false;
-        }
-        int i = indexOf(key);
-        table[i] = new MapEntry<>(key, value);
         float load = (float) count / capacity;
         if (Float.compare(load, LOAD_FACTOR) >= 0) {
             expand();
         }
+        int i = indexOf(key);
+        table[i] = new MapEntry<>(key, value);
         modCount++;
         count++;
         return true;
@@ -82,7 +79,29 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public Iterator<K> iterator() {
-        return new ElIterator();
+        return new Iterator<>() {
+            private int position = 0;
+            private int expectedModCount = modCount;
+
+            @Override
+            public boolean hasNext() {
+                if (expectedModCount != modCount) {
+                    throw new ConcurrentModificationException();
+                }
+                while (position < capacity && table[position] == null) {
+                    position++;
+                }
+                return position < capacity && table[position] != null;
+            }
+
+            @Override
+            public K next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                return table[position++].key;
+            }
+        };
     }
 
     private static class MapEntry<K, V> {
@@ -96,35 +115,4 @@ public class SimpleMap<K, V> implements Map<K, V> {
         }
 
     }
-
-    class ElIterator implements Iterator<K> {
-
-        private int position;
-        private int expectedModCount;
-
-        public ElIterator() {
-            position = 0;
-            expectedModCount = modCount;
-        }
-
-        @Override
-        public boolean hasNext() {
-            while (position < capacity && table[position] == null) {
-                position++;
-            }
-            return position < capacity && table[position] != null;
-        }
-
-        @Override
-        public K next() {
-            if (!hasNext()) {
-                throw new NoSuchElementException();
-            }
-            if (expectedModCount != modCount) {
-                throw new ConcurrentModificationException();
-            }
-            return table[position++].key;
-        }
-    }
-
 }
