@@ -13,6 +13,9 @@ public class SimpleMapTest {
     public void whenPut1Person() {
         SimpleMap<Integer, String> users = new SimpleMap<>();
         boolean rsl = users.put(1702453448, "Сергеева");
+        int a = 384;
+        byte b = (byte) a;
+        System.out.println(b);
         assertTrue(rsl);
     }
 
