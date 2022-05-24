@@ -90,9 +90,8 @@ Generics (обобщения) - это параметризованные тип
 Обобщения работают **только с ссылочными типами**.
 <details>
     <summary>Пример</summary>    
-    java
-    package ru.job4j.generics; 
-      
+    
+     package ru.job4j.generics;       
      public class Gen<T> { 
          T ob; 
       
