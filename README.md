@@ -90,7 +90,7 @@ Generics (обобщения) - это параметризованные тип
 Обобщения работают **только с ссылочными типами**.
 <details>
     <summary>Пример</summary>    
-    ```java
+    `java
     package ru.job4j.generics; 
       
      public class Gen<T> { 
@@ -129,8 +129,7 @@ Generics (обобщения) - это параметризованные тип
              String str = strOb.getOb(); 
              System.out.println("Значение: " + str); 
          } 
-     }
-    ```
+     }    
 </details>    
 
 Из примера выше нельзя провести следующую операцию:
