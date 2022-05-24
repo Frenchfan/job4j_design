@@ -9,9 +9,9 @@ logging, sockets, serialization, setting PostGreSQL, JDBC. Additional informatio
 
 #### part 1. [Collections Lite](CollectionsLite.md#collections-lite)
 
-[1. Что такое генерики?](#1-Что-такое-генерики)
+[1. Что такое дженерики?](#1-Что-такое-дженерики)
 
-[2. Типы генериков?](#2-Типы-генериков)
+[2. Типы дженериков?](#2-Типы-дженериков)
 
 [3. Где хранится информация про Generics?](#3-Где-хранится-информация-про-Generics)
 
