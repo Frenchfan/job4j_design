@@ -9,9 +9,9 @@ logging, sockets, serialization, setting PostGreSQL, JDBC. Additional informatio
 
 #### part 1. [Collections Lite](CollectionsLite.md#collections-lite)
 
-[1. Что такое генерики?](#1-Что-такое-генерики)
+[1. Что такое дженерики?](#1-Что-такое-дженерики)
 
-[2. Типы генериков?](#2-Типы-генериков)
+[2. Типы дженериков?](#2-Типы-дженериков)
 
 [3. Где хранится информация про Generics?](#3-Где-хранится-информация-про-Generics)
 
@@ -79,30 +79,124 @@ logging, sockets, serialization, setting PostGreSQL, JDBC. Additional informatio
 
 [35. Какие существуют алгоритмы обхода дерева?](#35-Какие-существуют-алгоритмы-обхода-дерева)
 
-## 1. Что такое генерики?
+## 1. Что такое дженерики?
 
-Обобщенное программирование - это подход к описанию данных и алгоритмов, позволяющий использовать их с разными типами
-данных без изменения их описания.
+Generics (обобщения) - это параметризованные типы. Они позволяют объявлять классы, интерфейсы и методы, где тип данных, которыми они оперируют, указан в виде параметра. Используя обобщения, можно, например, создать единственный класс, который будет автоматически обращаться с разнотипными данными. Классы, интерфейсы или методы, оперирующие параметризованными типами, называются обощенными.
 
-**Обобщения** - это параметризованные типы. С их помощью можно объявлять классы, интерфейсы и методы, где тип данных 
-указан в виде параметра. 
+До появления механизма обощения применялись ссылки типа Object (суперкласс для всех остальных классов). Но они не могли обеспечить типовую безопасность. Обобщения также избавили от необходимости явного приведения типов, теперь это происходит неявно или автоматически.
 
-Дженерики позволяют типам (классам и интерфейсам) быть параметрами при определении классов, интерфейсов и методов.
-Параметры типа предоставляют возможность повторно использовать один и тот же код с разными входами наподобие формальных 
-параметров в объявлениях методов. Разница в том, что входные данные для формальных параметров являются значениями, а
-для дженериков - типами данных. Переменная типа может быть любым не примитивным типом.
+На практике, компилятор удаляет все сведения об обобщенных типах (этот процесс называется *стиранием*), выполняя необходимые операции приведения типов, чтобы сделать поведение прикладного кода таким, как будто создана конкретная версия класса Gen.
 
-В Java дженерики добавили для реализации обобщенных коллекций, безопасных с точки зрения типов.
-Ошибка компиляции - это лучше, чем исключение `ClassCastException` в связи с неправильным приведением типов во время выполнения.
-После компиляции какая-либо информация о дженериках стирается. Это называется "Стирание типов".
-Также дженерики делают исходный код программы более удобочитаемым.
+Обобщения работают **только с ссылочными типами**.
+<details>
+    <summary>Пример</summary>
+     
+ ```java    
+     package ru.job4j.generics;       
+     public class Gen<T> { 
+         T ob; 
+      
+         /** 
+          * Demonstrating generics 
+          * @param ob 
+          */ 
+         public Gen(T ob) { 
+             this.ob = ob; 
+         } 
+      
+         public T getOb() { 
+             return ob; 
+         } 
+      
+         void showType() { 
+             System.out.println("Типом T является " + ob.getClass().getName()); 
+         } 
+     }
+    
+    package ru.job4j.generics; 
+      
+     public class GenDemo { 
+         public static void main(String[] args) { 
+             Gen<Integer> iOb; 
+             //Обрати внимание на автоупаковку для инкапсуляции значения 
+             iOb = new Gen<>(88); 
+             iOb.showType(); 
+             int v = iOb.getOb(); 
+             System.out.println("Значение: " + v); 
+             System.out.println(); 
+             Gen<String> strOb = new Gen<>("Тест обобщений"); 
+             strOb.showType(); 
+             String str = strOb.getOb(); 
+             System.out.println("Значение: " + str); 
+         } 
+     }   
+ ```
+</details>    
 
-Свойства дженериков: строгая типизация, единая реализация, отсутствие информации о типе.
+Из примера выше нельзя провести следующую операцию:
 
-В `Java Collections Framework`используются обобщенные типы, например, класс типа `LinkedList<E>` - обобщенный тип. 
-Параметр `<E>` предсталяет тип элементов, которые будут храниться в коллекции.
+~~iOb = strOb~~
 
-`LinkedList<String>`, `LinkedList<Integer>` - это параметризованные типы, а `String`, `Integer` - реальные типы аргументов.
+Несмотря на то, что iOb и strOb относятся к типу Gen<T>, они являются ссылками на разные типы объектов, потому что их параметры типов отличаются. Этим, в частности, обощения обеспечивают типовую безопасность.
+
+**Благодаря обобщениям ошибки, возникающие во время выполнения, преобразуются в ошибки, обнаруживаемые во время компиляции**.
+
+- **Обобщения могут быть с 2-мя и более параметрами.** 
+<details>
+    <summary>Пример</summary>
+    
+```java
+    class TwoGen<T, V> {
+    	T ob1;
+    	V ob2;
+    
+    	TwoGen(T o1, V o2) {
+    		ob1 = o1;
+    		ob2 = o2;
+    	}
+    
+    	void showTypes() {
+    		System.out.println(”Type T: “ + ob1.getClass().getName());
+    		System.out.println(Type V: “ + ob2.getClass().getName());
+    	}
+    
+    	T getob1() {
+    		return ob1;
+    	}
+    
+    	V getob2() {
+    		return ob2;
+    	}
+    }
+    
+    class SimpleGen {
+    
+    	public static void main(String args[]) {
+    		TwoGen<Integer, String>(tgObj = new TwoGen<Integer, String>(88, “Обобщения”);
+    		tgObj.showTypes();
+    		int v = tgObj.getob1();
+    		System.out.println(”Значение: ” + v);
+    		String str = tgObj.getob2();
+    		System.out.println(”Значени” + str);
+    	}
+    }
+```
+</details>  
+
+Свойства дженериков: **строгая типизация, единая реализация, отсутствие информации о типе**.
+
+!!! Нельзя создать массив параметра типа ~~T[] array~~; нельзя создать массив generic классов (~~List<Integer>[] lists = **new** List<Integer>[10]~~). Но можно создать коллекцию коллекций (список списков).
+
+By convention, type parameter names are single, uppercase letters. This stands in sharp contrast to the variable [naming](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/variables.html#naming) conventions that you already know about, and with good reason: Without this convention, it would be difficult to tell the difference between a type variable and an ordinary class or interface name.
+
+The most commonly used type parameter names are:
+
+- E - Element (used extensively by the Java Collections Framework)
+- K - Key
+- N - Number
+- T - Type
+- V - Value
+- S,U,V etc. - 2nd, 3rd, 4th types - [https://docs.oracle.com/javase/tutorial/java/generics/types.html](https://docs.oracle.com/javase/tutorial/java/generics/types.html)
 
 наглядно из Effective Java:
 
@@ -110,7 +204,7 @@ logging, sockets, serialization, setting PostGreSQL, JDBC. Additional informatio
 
 [к оглавлению](#Collections-Pro)
 
-## 2. Типы генериков?
+## 2. Типы дженериков?
 
 Существует 2 типа дженериков:
 
