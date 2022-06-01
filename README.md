@@ -187,6 +187,69 @@ Generics (обобщения) - это параметризованные тип
 
 !!! Нельзя создать массив параметра типа ~~T[] array~~; нельзя создать массив generic классов (~~List<Integer>[] lists = **new** List<Integer>[10]~~). Но можно создать коллекцию коллекций (список списков).
 
+Обощенные методы могут быть и в необобщенных классах. Вот пример объявления: `static <T extends Comparable<T>, V extends T> boolean isIn(T x, V[] y) {` Параметр типа объявляется **до типа, возвращаемого методом**. T и V связаны,чтобы гарантировать совместимость аргументов! Интерфейс Comparable является обощенным. Пример полностью - 
+
+[https://github.com/Frenchfan/job4j_design/commit/9b652257db6f5f599d01e6729267f23cdd6e3017](https://github.com/Frenchfan/job4j_design/commit/9b652257db6f5f599d01e6729267f23cdd6e3017)
+
+**Конструкторы также могут быть обобщенными** вне обощенного класса. `<Т extends NumЬer> GenCons(T arg) {`. Пример: https://github.com/Frenchfan/job4j_design/commit/a68926b6d9a83d610079e979d203af2d265f3083
+
+By convention, type parameter names are single, uppercase letters. This stands in sharp contrast to the variable [naming](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/variables.html#naming) conventions that you already know about, and with good reason: Without this convention, it would be difficult to tell the difference between a type variable and an ordinary class or interface name.
+
+**Обобщенными могут быть и интерфейсы**. Пример объявления: `interface MinMax<T extends Comparable<T>> {}`
+
+Обрати внимание на ограничение T сверху. Объявление класса, реализующего интерфейс, выглядит следующим образом:
+
+`class MyClass<T extends Comparable<T>> implements MinMax<T> {}`
+
+После implements не нужно вновь описывать T - ограничение по нему уже есть в объявлении интерфейса, нужно лишь показать, что это обобщенный интерфейс. 
+
+Как правило, класс, реализующий обобщенный интерфейс, **должен быть также обобщенным**. Иначе нельзя передать параметр типа. Однако, если после implements указать конкретный тип данных, то можно этого избежать:
+
+`class MyClass implements MinMax<Integer> {}`
+
+Преимущества обобщенных интерфейсов:
+
+- может быть реализован для разных типов данных
+- позволяет наложить ограничение
+
+Пример с интерфейсом полностью:
+
+[https://github.com/Frenchfan/job4j_design/commit/264ea555a5aca8daa0832aeae3cd69c470effc2c](https://github.com/Frenchfan/job4j_design/commit/264ea555a5aca8daa0832aeae3cd69c470effc2c)
+
+**Базовый тип и унаследованный код**. Для совместимости с написанным ранее кодом допускается создание создавать экземпляры дженериков без параметров:
+
+`Gen raw = new Gen(new Double(98.6));` Проблема такого подхода - отсутствие типовой безопасности. 
+
+**Сравнение типов в обощенной иерархии во время выполнения**
+
+Для получения сведений о типе во время выполнения служит оператор instanceof - определяет, является ли объект экземпляром класса (тип значения - boolean).
+
+ instanceof выдаст true, если объект дочернего обощенного класса сравнивается с суперклассом (родительским). При этом нельзя сравнивать объект обощенного класса с конкретным объектом - Gen<Integer> вместо Gen<?> - во время выполнения нет инфо о классе. 
+
+[https://github.com/Frenchfan/job4j_design/commit/fd5aca72bcddae05835b656fdd587dad07d98e4e](https://github.com/Frenchfan/job4j_design/commit/fd5aca72bcddae05835b656fdd587dad07d98e4e)
+
+**Приведение типов**
+
+Тип одного экземпляра обобщенного класса можно привести к другому только в том случае, если они совместимы и их аргументы типа одинаковы. 
+
+**Переопределение методов в обобщенном классе**
+
+Никаких особенностей, переопределяются методы как у обычных классов:
+
+[https://github.com/Frenchfan/job4j_design/commit/247c9b288de2973c01f45c635954d09ed399ac2f](https://github.com/Frenchfan/job4j_design/commit/247c9b288de2973c01f45c635954d09ed399ac2f)
+
+Начиная с JDK7 можно не дублировать тип аргументов, а использовать ромбовидный оператор:
+
+`MyClass<Integer, String> mcOb = new MyClass<>(98, "Line");` 
+
+Нужно также очень аккуратно подходить к перегрузке методов обобщенных классов, чтобы избежать ощибок неоднозначности - 2 разных буквы в generic методе могут обозначать один и тот же тип,поэтому перегрузка бессмысленна при разделении этих букв на 2 варианта метода. Лучше дать им разные названия.
+
+**Невозможно объявить статические поля в обобщенных классах**
+
+``GenB<?>[] gens = new GenB<?>[10];` - **вот так объявляем массив элементов обобщенного класса**
+
+**Создать обобщенные классы исключений нельзя. Обобщения не могут расширять Throwable**
+
 By convention, type parameter names are single, uppercase letters. This stands in sharp contrast to the variable [naming](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/variables.html#naming) conventions that you already know about, and with good reason: Without this convention, it would be difficult to tell the difference between a type variable and an ordinary class or interface name.
 
 The most commonly used type parameter names are:
