@@ -32,5 +32,6 @@ class OverrideDemo {
         System.out.println(iOb.getOb());
         System.out.println(iOb2.getOb());
         System.out.println(strOb2.getOb());
+        GenB<?>[] gens = new GenB<?>[10];
     }
 }
