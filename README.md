@@ -305,10 +305,13 @@ The most commonly used type parameter names are:
 
 ## 4. Как можно получить тип Generics?
 
-```java
-.getGenericSuperclass()
-Class<T> t = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-```
+Для получения сведений о типе во время выполнения служит оператор instanceof - определяет, является ли объект экземпляром класса (тип значения - boolean).
+
+ instanceof выдаст true, если объект дочернего обощенного класса сравнивается с суперклассом (родительским). При этом нельзя сравнивать объект обобщенного класса с конкретным объектом - Gen<Integer> вместо Gen<?> - во время выполнения нет инфо о классе. 
+
+[https://github.com/Frenchfan/job4j_design/commit/fd5aca72bcddae05835b656fdd587dad07d98e4e](https://github.com/Frenchfan/job4j_design/commit/fd5aca72bcddae05835b656fdd587dad07d98e4e)
+
+`Class<T> t = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];` - ???
 
 [к оглавлению](#Collections-Pro)
 
