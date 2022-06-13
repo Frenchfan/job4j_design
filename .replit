@@ -1,0 +1,2 @@
+language = "java17"
+run = "java -classpath .:target/dependency/* Main"

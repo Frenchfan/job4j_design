@@ -22,6 +22,7 @@ class GenB2<T> extends GenB<T> {
     T getOb() {
         System.out.println("Method getOb() from the class GenB2: ");
         return ob;
+        //test
     }
 }
 class OverrideDemo {
