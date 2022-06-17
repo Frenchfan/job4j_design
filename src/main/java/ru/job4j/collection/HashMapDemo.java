@@ -12,7 +12,7 @@ public class HashMapDemo {
         hm.put("Ральф Смит", -19.08);
 
         Set<Map.Entry<String, Double>> set = hm.entrySet();
-        for(Map.Entry<String, Double> me: set) {
+        for (Map.Entry<String, Double> me: set) {
             System.out.print(me.getKey() + ":");
             System.out.println(me.getValue());
         }
