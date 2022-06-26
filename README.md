@@ -344,14 +344,15 @@ ob.getClass().getName() - отобразит текущий тип дженер�
 
 Пример:
 
-[Demostrating Iterator and ListIterator](https://github.com/Frenchfan/job4j_design/commit/3e638c66eda9c7d83265fbf32246b43347f1014e)
+[Demonstrating Iterator and ListIterator](https://github.com/Frenchfan/job4j_design/commit/3e638c66eda9c7d83265fbf32246b43347f1014e)
 
 Все коллекции также реализуют интерфейс `Iterable`, а, значит, их можно перебирать циклом for в стиле for each 
 
 [Demonstrating For (Foreach) instead of Iterator](https://github.com/Frenchfan/job4j_design/commit/fae96d43558e21f3babb7cfe95f7f3b151257c5e)
 
 С JDK8 появилась возможность для циклического обхода коллекции средствами интерфейса Spliterator. Этот интерфейс предоставляет методы, которые могут работать с коллекциями в несколько потоков параллельно. Кроме того, 2 метода (tryAdvance и forEachRemaining используют функциональный интерфейс).
-[Demostrating Spliterator]
+
+[Demonstrating Spliterator]
 (https://github.com/Frenchfan/job4j_design/commit/38e14ca62db340987d130c9ed67c8fc964d25393)
 
 
