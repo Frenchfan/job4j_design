@@ -189,9 +189,11 @@ Generics (обобщения) - это параметризованные тип
 
 Обощенные методы могут быть и в необобщенных классах. Вот пример объявления: `static <T extends Comparable<T>, V extends T> boolean isIn(T x, V[] y) {` Параметр типа объявляется **до типа, возвращаемого методом**. T и V связаны,чтобы гарантировать совместимость аргументов! Интерфейс Comparable является обощенным. Пример полностью - 
 
-[https://github.com/Frenchfan/job4j_design/commit/9b652257db6f5f599d01e6729267f23cdd6e3017](Generics - non-generic class)
+[https://github.com/Frenchfan/job4j_design/commit/9b652257db6f5f599d01e6729267f23cdd6e3017]
+(Generics - non-generic class)
 
-**Конструкторы также могут быть обобщенными** вне обощенного класса. `<Т extends NumЬer> GenCons(T arg) {`. Пример: [https://github.com/Frenchfan/job4j_design/commit/a68926b6d9a83d610079e979d203af2d265f3083](Generic constructor)
+**Конструкторы также могут быть обобщенными** вне обощенного класса. `<Т extends NumЬer> GenCons(T arg) {`. Пример: [https://github.com/Frenchfan/job4j_design/commit/a68926b6d9a83d610079e979d203af2d265f3083]
+(Generic constructor)
 
 By convention, type parameter names are single, uppercase letters. This stands in sharp contrast to the variable [naming](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/variables.html#naming) conventions that you already know about, and with good reason: Without this convention, it would be difficult to tell the difference between a type variable and an ordinary class or interface name.
 
