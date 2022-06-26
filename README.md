@@ -214,7 +214,7 @@ By convention, type parameter names are single, uppercase letters. This stands i
 
 Пример с интерфейсом полностью:
 
-[https://github.com/Frenchfan/job4j_design/commit/264ea555a5aca8daa0832aeae3cd69c470effc2c](Generic interface)
+[Generic interface](https://github.com/Frenchfan/job4j_design/commit/264ea555a5aca8daa0832aeae3cd69c470effc2c)
 
 **Базовый тип и унаследованный код**. Для совместимости с написанным ранее кодом допускается создание создавать экземпляры дженериков без параметров:
 
@@ -226,7 +226,7 @@ By convention, type parameter names are single, uppercase letters. This stands i
 
  instanceof выдаст true, если объект дочернего обощенного класса сравнивается с суперклассом (родительским). При этом нельзя сравнивать объект обощенного класса с конкретным объектом - Gen<Integer> вместо Gen<?> - во время выполнения нет инфо о классе. 
 
-[https://github.com/Frenchfan/job4j_design/commit/fd5aca72bcddae05835b656fdd587dad07d98e4e](Generic and instanceof)
+[Generic and instanceof](https://github.com/Frenchfan/job4j_design/commit/fd5aca72bcddae05835b656fdd587dad07d98e4e)
 
 **Приведение типов**
 
@@ -236,7 +236,7 @@ By convention, type parameter names are single, uppercase letters. This stands i
 
 Никаких особенностей, переопределяются методы как у обычных классов:
 
-[https://github.com/Frenchfan/job4j_design/commit/247c9b288de2973c01f45c635954d09ed399ac2f](Overriding generics)
+[Overriding generics](https://github.com/Frenchfan/job4j_design/commit/247c9b288de2973c01f45c635954d09ed399ac2f)
 
 Начиная с JDK7 можно не дублировать тип аргументов, а использовать ромбовидный оператор:
 
