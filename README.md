@@ -188,6 +188,7 @@ Generics (обобщения) - это параметризованные тип
 !!! Нельзя создать массив параметра типа ~~T[] array~~; нельзя создать массив generic классов (~~List<Integer>[] lists = **new** List<Integer>[10]~~). Но можно создать коллекцию коллекций (список списков).
 
 Обощенные методы могут быть и в необобщенных классах. Вот пример объявления: `static <T extends Comparable<T>, V extends T> boolean isIn(T x, V[] y) {` Параметр типа объявляется **до типа, возвращаемого методом**. T и V связаны,чтобы гарантировать совместимость аргументов! Интерфейс Comparable является обощенным. Пример полностью - 
+[Generics, wild card, bounded and lower bounded wildcard](https://github.com/Frenchfan/job4j_design/commit/70b970f7d318c0db728e59d5f85abff4d9fe7a2d)
 [Generics - non-generic class]([https://github.com/Frenchfan/job4j_design/commit/70b970f7d318c0db728e59d5f85abff4d9fe7a2d]
 
 **Конструкторы также могут быть обобщенными** вне обощенного класса. `<Т extends NumЬer> GenCons(T arg) {`. Пример: [Generic constructor] (https://github.com/Frenchfan/job4j_design/commit/a68926b6d9a83d610079e979d203af2d265f3083)
