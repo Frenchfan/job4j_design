@@ -1,7 +1,7 @@
 package ru.job4j.generics;
 
 public class GenMethDemo {
-// определить,содержится ли элемент в массиве
+
     static <T extends Comparable<T>, V extends T> boolean isIn(T x, V[] y) {
         for (int i = 0; i < y.length; i++) {
             if (x.equals(y[i])) {
@@ -26,7 +26,6 @@ public class GenMethDemo {
         if (!isIn("семь", strs)) {
             System.out.println("семь отсутствует в массиве strs");
         }
-        //if (isIn("два", nums)) {
-        //    System.out.println("два содержится в массиве nums");
+
     }
 }

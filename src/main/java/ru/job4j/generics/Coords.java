@@ -65,8 +65,7 @@ class BoundedWildCard {
 
         System.out.println("Содержимое объекта tdlocks.");
         showXY(tdlocks);
-        //showXYZ(tdlocks);
-        //showAll(tdlocks);
+
 
         FourD[] fd = {
                 new FourD(1, 2, 3, 4),
@@ -77,7 +76,7 @@ class BoundedWildCard {
 
         Coords<FourD> fdlocs = new Coords<>(fd);
         System.out.println("Содержимое объекта fdlocs. ");
-        //Здесь все верно
+
         showXY(fdlocs);
         showXYZ(fdlocs);
         showAll(fdlocs);

@@ -21,7 +21,7 @@ public class IteratorDemo {
         }
         System.out.println();
 
-        // modifying the collection - see below
+
         ListIterator<String> litr = al.listIterator();
         while (litr.hasNext()) {
             String element = litr.next();
@@ -33,7 +33,7 @@ public class IteratorDemo {
             String element = itr.next();
             System.out.print(element + " ");
         }
-        //reverse order
+
         System.out.println();
         System.out.println("Reverse order: ");
         while (litr.hasPrevious()) {

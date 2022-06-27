@@ -7,7 +7,7 @@ enum Suit {
 }
 
 enum Value {
-    V_6, V_7, V_8
+    V_6, V_7, V_8, V_9
 }
 
 class Card {

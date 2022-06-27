@@ -6,8 +6,7 @@ public class Gen2<T> extends Gen<T> {
     }
 }
 class HierDemo3 {
-    //продемонстрировать последствия динамической
-    //идентификации типов в иерархии обощенных классов
+
     public static void main(String[] args) {
         Gen<Integer> iOb = new Gen<>(88);
         Gen2<Integer> iOb2 = new Gen2<>(99);
@@ -32,10 +31,6 @@ class HierDemo3 {
         if (iOb instanceof Gen<?>) {
             System.out.println("The object iOb belongs to the class Gen");
         }
-        //не скомпилируется - нет инфо обо обобщенном типе во время выполнения
-        //if (iOb2 instanceof Gen2<Integer>)
-        //System.out.println("The object iOb2 belongs to the class Gen2<Integer>");
-
 
     }
 }

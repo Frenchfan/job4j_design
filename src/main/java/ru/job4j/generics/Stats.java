@@ -1,5 +1,5 @@
 package ru.job4j.generics;
-//ограничение сверху
+
 public class Stats<T extends Number> {
     T[] nums;
 

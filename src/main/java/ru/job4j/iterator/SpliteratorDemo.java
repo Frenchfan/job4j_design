@@ -16,7 +16,6 @@ public class SpliteratorDemo {
         while (spltitr.tryAdvance((n) -> System.out.println(n))) {
             System.out.println();
         }
-        //создать новый списочный массив, содержащий квадратные корни числовых значений
         spltitr = vals.spliterator();
         ArrayList<Double> sqrs = new ArrayList<>();
         while (spltitr.tryAdvance((n) -> sqrs.add(Math.sqrt(n)))) {
