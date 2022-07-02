@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 public class Analize {
 
     public static Info diff(Set<User> previous, Set<User> current) {
-        int added = 0, changed = 0, deleted = 0;
+        int added = 0, changed = 0, deleted;
 
         Map<Integer, String> testMap = previous.stream()
                 .collect(Collectors.toMap(User::getId, User::getName));
