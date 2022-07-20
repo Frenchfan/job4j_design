@@ -20,10 +20,9 @@ public class Config {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             String fileLine;
             while ((fileLine = read.readLine()) != null) {
-                if (!fileLine.startsWith("#") && fileLine.length() > 1) {
+                if (!fileLine.startsWith("#") && !fileLine.isEmpty()) {
                     String[] keyValue = fileLine.split("=", 2);
-                    if (keyValue.length == 1 || keyValue[0].isBlank() || keyValue[0].isEmpty()
-                            || keyValue[1].isBlank() || keyValue[1].isEmpty()) {
+                    if (keyValue.length == 1 || keyValue[0].isBlank() || keyValue[1].isBlank()) {
                         throw new IllegalArgumentException("The file is incorrect");
                     } else {
                         values.put(keyValue[0], keyValue[1]);
