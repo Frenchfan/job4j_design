@@ -24,9 +24,9 @@ public class Config {
                     String[] keyValue = fileLine.split("=", 2);
                     if (keyValue.length == 1 || keyValue[0].isBlank() || keyValue[1].isBlank()) {
                         throw new IllegalArgumentException("The file is incorrect");
-                    } else {
-                        values.put(keyValue[0], keyValue[1]);
                     }
+                    values.put(keyValue[0], keyValue[1]);
+
                 }
             }
         } catch (IOException e) {
