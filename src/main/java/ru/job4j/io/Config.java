@@ -22,8 +22,9 @@ public class Config {
             while ((fileLine = read.readLine()) != null) {
                 if (!fileLine.startsWith("#") && fileLine.length() > 1) {
                     String[] keyValue = fileLine.split("=", 2);
-                    if (keyValue.length == 1 || keyValue[0].equals("") || keyValue[1].equals("")) {
-                        throw new IllegalArgumentException();
+                    if (keyValue.length == 1 || keyValue[0].isBlank() || keyValue[0].isEmpty()
+                            || keyValue[1].isBlank() || keyValue[1].isEmpty()) {
+                        throw new IllegalArgumentException("The file is incorrect");
                     } else {
                         values.put(keyValue[0], keyValue[1]);
                     }
